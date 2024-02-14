@@ -7,8 +7,12 @@
 package week04;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Week04StringBuilderListSetMapLab {
 
@@ -92,7 +96,9 @@ public class Week04StringBuilderListSetMapLab {
 		//		c. The third containing values divisible by 5, and 
 		//		d. The fourth all numbers from the input List not divisible by 2, 3, or 5
 		//List<Integer> testList = new ArrayList<Integer>(2,25,47,-17,16,-30,19,593,235,-39);
-		List<Integer> testList = List.of(2,25,47,-17,16,-30,19,593,235,-39);
+		List<Integer> testList = new ArrayList<Integer>();
+		testList = List.of(2,25,47,-17,16,-30,19,593,235,-39);
+		
 		List<List<Integer>> divTest = testIntegers(testList);
 		
 		for (int i = 0; i < divTest.size(); i++) {
@@ -130,61 +136,133 @@ public class Week04StringBuilderListSetMapLab {
 
 		
 		// 9. Create a set of strings and add 5 values
+		Set<String> veggies = new HashSet<String>();
+		veggies = Set.of("carrot", "cucumber", "pepper", "lettuce", "tomato");
+		
+		
+		
 
 		
 		
 		// 10. Write and test a method that takes a set of strings and a character 
 		//			and returns a set of strings consisting of all the strings in the
 		// 			input set that start with the character parameter.
+		Set<String> validVeggies = new HashSet<String>();
+		char checkedLetter = 'c';
+		
+		validVeggies = checkFirstLetter(veggies, checkedLetter);
 
+		for (String v : validVeggies) {
+			System.out.println(v);
+		}
 
 		
 		// 11. Write and test a method that takes a set of strings 
 		//			and returns a list of the same strings
+		
+		for (String s : setToList(veggies)) {
+			System.out.println(s);
+		}
 	
 		
 
 		// 12. Write and test a method that takes a set of integers 
 		//			and returns a new set of integers containing only even numbers 
 		//			from the original set
+		Set<Integer> integerSet = new HashSet<Integer>();
 
+		integerSet = Set.of(3,5,7,6,-5,8,1,-6,9,0,15,-14);
+		for (int e : giveEvens(integerSet)) {
+			System.out.print(e + ", ");
+		}
+		System.out.println();
 
 		
 		// 13. Create a map of string and string and add 3 items to it where the key of each
 		// 			is a word and the value is the definition of the word
-
+		Map<String, String> dictionary = new HashMap<String, String>();
+		dictionary.put("mitochodrion", 
+				"an organelle found in large numbers in most cells, in which the biochemical processes of respiration and energy production occur. It has a double membrane, the inner layer being folded inward to form layers (cristae).");
+		dictionary.put("stellar", "relating to a star or stars.");
+		dictionary.put("quantum","a discrete quantity of energy proportional in magnitude to the frequency of the radiation it represents.");
 	
 		
 		// 14. Write and test a method that takes a Map<String, String> and a string 
 		// 			and returns the value for a key in the map that matches the
 		// 			string parameter (i.e. like a language dictionary lookup)
+		String index = "quantum";
+		System.out.println(index + ": " + giveDefinition(dictionary, index));
 
 		
 		// 15. Write and test a method that takes a List<String> 
 		//			and returns a Map<Character, Integer> containing a count of 
 		//			all the strings that start with a given character
 		
+		Map<Character, Integer> countMap = new HashMap<Character, Integer>();
+		countMap = firstLetterCount(str2);
+		for (char c : countMap.keySet()) {
+			System.out.println(c + ": " + countMap.get(c));
+		}
+		
 
 	}
 	
 	
 	// Method 15:
+	public static Map<Character, Integer> firstLetterCount(List<String> str){
+		Map<Character, Integer> countMap = new HashMap<Character, Integer>();
+		for (String s : str) {
+			if (countMap.get(s.charAt(0)) != null) {
+				countMap.put(s.charAt(0), countMap.get(s.charAt(0)) + 1);
+			} else {
+				countMap.put(s.charAt(0), 1);
+			}
+		}
+		return countMap;		
+	}
 	
 	
 	
 	// Method 14:
-	
+	public static String giveDefinition(Map<String, String> dictionary, String index) {
+		return dictionary.get(index);
+	}
 
 	
 	// Method 12:
-	
+	public static Set<Integer> giveEvens(Set<Integer> nums){
+		Set<Integer> evens = new HashSet<Integer>();
+		for (int n : nums) {
+			if (n % 2 == 0) {
+				evens.add(n);
+			}
+		}
+		return evens;
+	}
 
 	
 	// Method 11:
+	public static List<String> setToList(Set<String> strSet){
+		List<String> strList = new ArrayList<String>();
+		for (String s : strSet) {
+			strList.add(s);
+		}
+		return strList;
+	}
 	
 
 
 	// Method 10:
+	public static Set<String> checkFirstLetter(Set<String> words, char letter) {
+		Set<String> validWords = new HashSet<String>();
+		
+		for (String w : words) {
+			if (w.charAt(0) == letter) {
+				validWords.add(w);
+			}
+		}
+		return validWords;
+	}
 	
 
 	
